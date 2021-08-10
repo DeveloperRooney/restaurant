@@ -1,6 +1,7 @@
 package com.sh.restaurant.interfaces;
 
 import com.sh.restaurant.domain.RestaurantRepository;
+import com.sh.restaurant.domain.RestaurantRepositoryImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ class RestaurantControllerTests {
     @Autowired
     private MockMvc mvc;
 
-    @SpyBean
+    @SpyBean(RestaurantRepositoryImpl.class)
     private RestaurantRepository repository;
 
     @Test
