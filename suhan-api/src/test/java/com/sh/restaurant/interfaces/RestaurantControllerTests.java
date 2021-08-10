@@ -1,9 +1,11 @@
 package com.sh.restaurant.interfaces;
 
+import com.sh.restaurant.domain.MenuItemRepositoryImpl;
 import com.sh.restaurant.domain.RestaurantRepository;
 import com.sh.restaurant.domain.RestaurantRepositoryImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
@@ -24,7 +26,10 @@ class RestaurantControllerTests {
     private MockMvc mvc;
 
     @SpyBean(RestaurantRepositoryImpl.class)
-    private RestaurantRepository repository;
+    private RestaurantRepository restaurantRepository;
+
+    @SpyBean(MenuItemRepositoryImpl.class)
+    private MenuItemRepositoryImpl menuItemRepository;
 
     @Test
     public void list() throws Exception {
@@ -43,9 +48,15 @@ class RestaurantControllerTests {
     public void detail() throws Exception {
         mvc.perform(get("/restaurant/1"))
             .andExpect(status().isOk())
+
             .andExpect(content().string(
-                    containsString("\"id\":1")
-            ))
+                    containsString("\"id\":1"))
+            )
+
+            .andExpect(content().string(
+                    containsString("\"name\":\"kimchi\""))
+            )
+
             .andExpect(content().string(
                     containsString("\"name\":\"yonan\"")
             ));

@@ -1,8 +1,9 @@
 package com.sh.restaurant.interfaces;
 
-import com.sh.restaurant.domain.RestaurantDTO;
+import com.sh.restaurant.domain.MenuItemDto;
+import com.sh.restaurant.domain.MenuItemRepository;
+import com.sh.restaurant.domain.RestaurantDto;
 import com.sh.restaurant.domain.RestaurantRepository;
-import com.sh.restaurant.domain.RestaurantRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,20 +15,25 @@ import java.util.List;
 public class RestaurantController {
 
     @Autowired
-    private RestaurantRepository repository;
+    private RestaurantRepository restaurantRepository;
+
+    @Autowired
+    private MenuItemRepository menuItemRepository;
 
     @GetMapping("/restaurant")
-    public List<RestaurantDTO> list() {
+    public List<RestaurantDto> list() {
 //        List<RestaurantDTO> restaurantDTOList = new ArrayList<>();
 //        restaurantDTOList.add(new RestaurantDTO(1004L, "Misoya", "Tokyo"));
 
-        List<RestaurantDTO> restaurantList = repository.findAll();
+        List<RestaurantDto> restaurantList = restaurantRepository.findAll();
 
         return restaurantList;
     }
 
     @GetMapping("/restaurant/{id}")
-    public RestaurantDTO detail(@PathVariable("id") Long id) {
+    public RestaurantDto detail(@PathVariable("id") Long id) {
+
+//        RestaurantDto restaurantDto = restaurantService.getRestaurantById(id);
 
 //        List<RestaurantDTO> restaurantDTOList = repository.findAll();
 //
@@ -38,7 +44,9 @@ public class RestaurantController {
 //                        .findFirst()
 //                        .orElse(null);
 
-        RestaurantDTO restaurant = repository.findById(id);
+        RestaurantDto restaurant = restaurantRepository.findById(id);
+        List<MenuItemDto> menuItems = menuItemRepository.findAllByRestaurantId(id);
+        restaurant.setMenuItem(menuItems);
 
         return restaurant;
     }

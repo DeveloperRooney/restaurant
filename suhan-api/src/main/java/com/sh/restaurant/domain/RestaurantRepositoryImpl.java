@@ -8,21 +8,21 @@ import java.util.List;
 @Component
 public class RestaurantRepositoryImpl implements RestaurantRepository {
 
-    private List<RestaurantDTO> restaurantList = new ArrayList<>();
+    private List<RestaurantDto> restaurantList = new ArrayList<>();
 
     public RestaurantRepositoryImpl() {
-        restaurantList.add(new RestaurantDTO(1L, "yonan", "Daejeon"));
-        restaurantList.add(new RestaurantDTO(2L, "misoya", "Tokyo"));
-        restaurantList.add(new RestaurantDTO(3L, "fujiyama", "shizuoka"));
+        restaurantList.add(new RestaurantDto(1L, "yonan", "Daejeon"));
+        restaurantList.add(new RestaurantDto(2L, "misoya", "Tokyo"));
+        restaurantList.add(new RestaurantDto(3L, "fujiyama", "shizuoka"));
     }
 
     @Override
-    public List<RestaurantDTO> findAll() {
+    public List<RestaurantDto> findAll() {
         return restaurantList;
     }
 
     @Override
-    public RestaurantDTO findById(Long id) {
+    public RestaurantDto findById(Long id) {
 
         return restaurantList.stream()
                 .filter(r -> r.getId().equals(id))

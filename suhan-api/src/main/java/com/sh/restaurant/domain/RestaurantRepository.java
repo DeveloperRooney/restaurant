@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface RestaurantRepository {
 
-    List<RestaurantDTO> findAll();
+    List<RestaurantDto> findAll();
 
-    RestaurantDTO findById(Long id);
+    RestaurantDto findById(Long id);
 }
