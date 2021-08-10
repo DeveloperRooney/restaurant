@@ -28,19 +28,17 @@ public class RestaurantController {
     @GetMapping("/restaurant/{id}")
     public RestaurantDTO detail(@PathVariable("id") Long id) {
 
-        List<RestaurantDTO> restaurantDTOList = new ArrayList<>();
+//        List<RestaurantDTO> restaurantDTOList = repository.findAll();
+//
+//        RestaurantDTO result = restaurantDTOList
+//                .stream()
+//                .filter(r -> r.getId()
+//                        .equals(id))
+//                        .findFirst()
+//                        .orElse(null);
 
-        restaurantDTOList.add(new RestaurantDTO(1L, "yonan", "Daejeon"));
-        restaurantDTOList.add(new RestaurantDTO(2L, "misoya", "Tokyo"));
-        restaurantDTOList.add(new RestaurantDTO(3L, "fujiyama", "shizuoka"));
+        RestaurantDTO restaurant = repository.findById(id);
 
-        RestaurantDTO result = restaurantDTOList
-                .stream()
-                .filter(r -> r.getId()
-                        .equals(id))
-                        .findFirst()
-                        .orElse(null);
-
-        return result;
+        return restaurant;
     }
 }
