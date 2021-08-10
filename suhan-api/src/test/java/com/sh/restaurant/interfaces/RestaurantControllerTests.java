@@ -1,11 +1,11 @@
 package com.sh.restaurant.interfaces;
 
+import com.sh.restaurant.application.RestaurantService;
 import com.sh.restaurant.domain.MenuItemRepositoryImpl;
 import com.sh.restaurant.domain.RestaurantRepository;
 import com.sh.restaurant.domain.RestaurantRepositoryImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
@@ -24,6 +24,9 @@ class RestaurantControllerTests {
 
     @Autowired
     private MockMvc mvc;
+
+    @SpyBean(RestaurantService.class)
+    private RestaurantService restaurantService;
 
     @SpyBean(RestaurantRepositoryImpl.class)
     private RestaurantRepository restaurantRepository;

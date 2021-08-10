@@ -10,7 +10,7 @@ public class MenuItemRepositoryImpl implements MenuItemRepository{
 
     private List<MenuItemDto> menuItems = new ArrayList<>();
 
-    MenuItemRepositoryImpl() {
+    public MenuItemRepositoryImpl() {
         menuItems.add(new MenuItemDto("kimchi"));
     }
 

@@ -1,6 +1,8 @@
 package com.sh.restaurant.application;
 
 
+import com.sh.restaurant.domain.MenuItemDto;
+import com.sh.restaurant.domain.MenuItemRepository;
 import com.sh.restaurant.domain.RestaurantDto;
 import com.sh.restaurant.domain.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,12 @@ public class RestaurantService {
     @Autowired
     RestaurantRepository restaurantRepository;
 
-    public RestaurantService(RestaurantRepository restaurantRepository) {
+    @Autowired
+    MenuItemRepository menuItemRepository;
+
+    public RestaurantService(RestaurantRepository restaurantRepository, MenuItemRepository menuItemRepository) {
         this.restaurantRepository = restaurantRepository;
+        this.menuItemRepository = menuItemRepository;
     }
 
     public List<RestaurantDto> getRestaurants() {
@@ -28,6 +34,9 @@ public class RestaurantService {
 
     public RestaurantDto getRestaurant(Long id) {
         RestaurantDto restaurant = restaurantRepository.findById(id);
+
+        List<MenuItemDto> menuItems = menuItemRepository.findAllByRestaurantId(id);
+        restaurant.setMenuItem(menuItems);
 
         return restaurant;
     }

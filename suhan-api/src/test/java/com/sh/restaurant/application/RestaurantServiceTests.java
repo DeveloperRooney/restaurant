@@ -1,8 +1,6 @@
 package com.sh.restaurant.application;
 
-import com.sh.restaurant.domain.RestaurantDto;
-import com.sh.restaurant.domain.RestaurantRepository;
-import com.sh.restaurant.domain.RestaurantRepositoryImpl;
+import com.sh.restaurant.domain.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,16 +11,24 @@ class RestaurantServiceTests {
 
     private RestaurantService restaurantService;
 
-    @BeforeEach
-    public void serUp() {
-        RestaurantRepositoryImpl restaurantRepository = new RestaurantRepositoryImpl();
+    private RestaurantRepository restaurantRepository;
 
-        restaurantService = new RestaurantService(restaurantRepository);
+    private MenuItemRepository menuItemRepository;
+
+    @BeforeEach
+    public void setUp() {
+        restaurantRepository = new RestaurantRepositoryImpl();
+        menuItemRepository = new MenuItemRepositoryImpl();
+        restaurantService = new RestaurantService(restaurantRepository, menuItemRepository);
     }
 
     @Test
     public void getRestaurant() {
         RestaurantDto restaurant = restaurantService.getRestaurant(1L);
         assertThat(restaurant.getId(), is(1L));
+
+
+        MenuItemDto menuItem = restaurant.getMenuItems().get(0);
+        assertThat(menuItem.getName(), is("kimchi"));
     }
 }
