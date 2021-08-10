@@ -1,5 +1,6 @@
 package com.sh.restaurant.interfaces;
 
+import com.sh.restaurant.application.RestaurantService;
 import com.sh.restaurant.domain.MenuItemDto;
 import com.sh.restaurant.domain.MenuItemRepository;
 import com.sh.restaurant.domain.RestaurantDto;
@@ -15,38 +16,21 @@ import java.util.List;
 public class RestaurantController {
 
     @Autowired
-    private RestaurantRepository restaurantRepository;
+    private RestaurantService restaurantService;
 
-    @Autowired
-    private MenuItemRepository menuItemRepository;
 
     @GetMapping("/restaurant")
     public List<RestaurantDto> list() {
-//        List<RestaurantDTO> restaurantDTOList = new ArrayList<>();
-//        restaurantDTOList.add(new RestaurantDTO(1004L, "Misoya", "Tokyo"));
 
-        List<RestaurantDto> restaurantList = restaurantRepository.findAll();
+        List<RestaurantDto> restaurants = restaurantService.getRestaurants();
 
-        return restaurantList;
+        return restaurants;
     }
 
     @GetMapping("/restaurant/{id}")
     public RestaurantDto detail(@PathVariable("id") Long id) {
 
-//        RestaurantDto restaurantDto = restaurantService.getRestaurantById(id);
-
-//        List<RestaurantDTO> restaurantDTOList = repository.findAll();
-//
-//        RestaurantDTO result = restaurantDTOList
-//                .stream()
-//                .filter(r -> r.getId()
-//                        .equals(id))
-//                        .findFirst()
-//                        .orElse(null);
-
-        RestaurantDto restaurant = restaurantRepository.findById(id);
-        List<MenuItemDto> menuItems = menuItemRepository.findAllByRestaurantId(id);
-        restaurant.setMenuItem(menuItems);
+        RestaurantDto restaurant = restaurantService.getRestaurant(id);
 
         return restaurant;
     }
