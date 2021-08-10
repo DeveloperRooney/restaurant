@@ -2,13 +2,19 @@ package com.sh.restaurant.domain;
 
 public class RestaurantDTO {
 
+    private final Long id;
     private final String name;
     private final String address;
 
-    public RestaurantDTO(String name, String address) {
+    public RestaurantDTO(Long id, String name, String address) {
+        this.id = id;
         this.name = name;
-
         this.address = address;
+    }
+
+    public Long getId() {
+
+        return id;
     }
 
     public String getName() {
@@ -16,8 +22,8 @@ public class RestaurantDTO {
         return name;
     }
 
-    public String getInformation() {
+    public String getAddress() {
 
-        return name + " in " + address;
+        return address;
     }
 }

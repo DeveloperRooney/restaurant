@@ -11,13 +11,13 @@ class RestaurantDTOTests {
 
     @Test
     public void creation() {
-        RestaurantDTO restaurantDTO = new RestaurantDTO("KIM SUHAN", "");
+        RestaurantDTO restaurantDTO = new RestaurantDTO(1004L,"KIM SUHAN", "");
         assertThat(restaurantDTO.getName(), is("KIM SUHAN"));
     }
 
     @Test
     public void information() {
-        RestaurantDTO restaurantDTO = new RestaurantDTO("Misoya", "Osaka");
-        assertThat(restaurantDTO.getInformation(), is("Misoya in Osaka"));
+        RestaurantDTO restaurantDTO = new RestaurantDTO(1004L,"Misoya", "Osaka");
+        assertThat(restaurantDTO.getAddress(), is("Osaka"));
     }
 }
