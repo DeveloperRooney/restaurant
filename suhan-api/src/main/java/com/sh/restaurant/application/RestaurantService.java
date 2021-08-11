@@ -40,4 +40,9 @@ public class RestaurantService {
 
         return restaurant;
     }
+
+    public RestaurantDto addRestaurant(RestaurantDto restaurant) {
+
+        return restaurantRepository.save(restaurant);
+    }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
-import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.*;
 
 
 class RestaurantServiceTests {
@@ -42,6 +42,7 @@ class RestaurantServiceTests {
         given(restaurantRepository.findAll()).willReturn(restaurants);
 
         given(restaurantRepository.findById(1L)).willReturn(restaurant);
+
     }
 
     private void mockMenuItemRepository() {
@@ -59,5 +60,19 @@ class RestaurantServiceTests {
 
         MenuItemDto menuItem = restaurant.getMenuItems().get(0);
         assertThat(menuItem.getName(), is("kimchi"));
+    }
+
+    @Test
+    public void addRestaurant() {
+
+        RestaurantDto restaurant = new RestaurantDto("KIMSUHAN", "Daejeon");
+        RestaurantDto saved = new RestaurantDto(1234L, "KIMSUHAN", "Daejeon");
+
+        given(restaurantRepository.save(any())).willReturn(saved);
+
+        RestaurantDto created =  restaurantService.addRestaurant(restaurant);
+
+        assertThat(created.getId(), is(1234L));
+
     }
 }

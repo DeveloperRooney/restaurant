@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -15,10 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.core.StringContains.containsString;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(RestaurantController.class)
@@ -83,6 +85,22 @@ class RestaurantControllerTests {
                 .andExpect(content().string(
                         containsString("\"name\":\"misoya\"")
                 ));
+    }
+
+    @Test
+    public void create() throws Exception {
+
+        RestaurantDto restaurant = new RestaurantDto(1234L, "Hello", "Daejeon");
+
+        mvc.perform(post("/restaurant")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"hello\",\"address\":\"Daejeon\"}"))
+                .andExpect(status().isCreated())
+                .andExpect(header().string("location", "/restaurant/1234"))
+                .andExpect(content().string("{}"));
+
+
+        verify(restaurantService).addRestaurant(any());
     }
 
 }

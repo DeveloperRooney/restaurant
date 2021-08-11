@@ -6,10 +6,11 @@ import com.sh.restaurant.domain.MenuItemRepository;
 import com.sh.restaurant.domain.RestaurantDto;
 import com.sh.restaurant.domain.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -34,4 +35,20 @@ public class RestaurantController {
 
         return restaurant;
     }
+
+    @PostMapping("/restaurant")
+    public ResponseEntity<?> create(@RequestBody RestaurantDto resource)
+            throws URISyntaxException {
+
+        String name = resource.getName();
+        String address = resource.getAddress();
+
+        RestaurantDto restaurant = new RestaurantDto(1234L, name, address);
+        restaurantService.addRestaurant(restaurant);
+
+        URI location = new URI("/restaurant/" + restaurant.getId());
+
+        return ResponseEntity.created(location).body("{}");
+    }
+
 }
