@@ -1,10 +1,7 @@
 package com.sh.restaurant.interfaces;
 
 import com.sh.restaurant.application.RestaurantService;
-import com.sh.restaurant.domain.MenuItemRepositoryImpl;
-import com.sh.restaurant.domain.RestaurantDto;
-import com.sh.restaurant.domain.RestaurantRepository;
-import com.sh.restaurant.domain.RestaurantRepositoryImpl;
+import com.sh.restaurant.domain.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +38,6 @@ class RestaurantControllerTests {
 
         given(restaurantService.getRestaurants()).willReturn(restaurants);
 
-
         mvc.perform(get("/restaurant"))
             .andExpect(status().isOk())
             .andExpect(content().string(
@@ -54,6 +50,16 @@ class RestaurantControllerTests {
 
     @Test
     public void detail() throws Exception {
+
+        RestaurantDto restaurant = new RestaurantDto(1L, "yonan", "Daejeon");
+        restaurant.addMenuItem(new MenuItemDto("kimchi"));
+
+        RestaurantDto restaurant2 = new RestaurantDto(2L, "misoya", "Daejeon");
+        restaurant.addMenuItem(new MenuItemDto("kimchi"));
+
+        given(restaurantService.getRestaurant(1L)).willReturn(restaurant);
+        given(restaurantService.getRestaurant(2L)).willReturn(restaurant2);
+
         mvc.perform(get("/restaurant/1"))
             .andExpect(status().isOk())
 
