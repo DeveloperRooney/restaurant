@@ -43,7 +43,7 @@ public class RestaurantController {
         String name = resource.getName();
         String address = resource.getAddress();
 
-        RestaurantDto restaurant = new RestaurantDto(1234L, name, address);
+        RestaurantDto restaurant = new RestaurantDto(name, address);
         restaurantService.addRestaurant(restaurant);
 
         URI location = new URI("/restaurant/" + restaurant.getId());

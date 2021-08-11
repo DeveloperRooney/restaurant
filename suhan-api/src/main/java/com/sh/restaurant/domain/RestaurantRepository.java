@@ -1,12 +1,15 @@
 package com.sh.restaurant.domain;
 
-import java.util.List;
+import org.springframework.data.repository.CrudRepository;
 
-public interface RestaurantRepository {
+import java.util.List;
+import java.util.Optional;
+
+public interface RestaurantRepository extends CrudRepository<RestaurantDto, Long> {
 
     List<RestaurantDto> findAll();
 
-    RestaurantDto findById(Long id);
+    Optional<RestaurantDto> findById(Long id);
 
     RestaurantDto save(RestaurantDto restaurant);
 }

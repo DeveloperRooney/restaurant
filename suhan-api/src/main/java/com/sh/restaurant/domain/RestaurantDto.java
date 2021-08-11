@@ -1,13 +1,22 @@
 package com.sh.restaurant.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class RestaurantDto {
 
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
     private String address;
+
+    @Transient
     private List<MenuItemDto> menuItems = new ArrayList<>();
 
     public RestaurantDto() {

@@ -33,7 +33,7 @@ public class RestaurantService {
 
 
     public RestaurantDto getRestaurant(Long id) {
-        RestaurantDto restaurant = restaurantRepository.findById(id);
+        RestaurantDto restaurant = restaurantRepository.findById(id).orElse(null);
 
         List<MenuItemDto> menuItems = menuItemRepository.findAllByRestaurantId(id);
         restaurant.setMenuItem(menuItems);

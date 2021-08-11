@@ -8,6 +8,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -41,7 +42,7 @@ class RestaurantServiceTests {
         restaurants.add(restaurant);
         given(restaurantRepository.findAll()).willReturn(restaurants);
 
-        given(restaurantRepository.findById(1L)).willReturn(restaurant);
+        given(restaurantRepository.findById(1L)).willReturn(Optional.of(restaurant));
 
     }
 
